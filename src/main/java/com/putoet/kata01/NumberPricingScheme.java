@@ -13,7 +13,11 @@ public class NumberPricingScheme extends PricingScheme {
 
     @Override
     public double price(int units) {
-        final double discount = discountScheme.map(numberDiscountScheme -> numberDiscountScheme.discount(pricePerUnit, units)).orElse(0.0);
+        final double discount =
+                discountScheme.map(numberDiscountScheme -> numberDiscountScheme.discount(pricePerUnit, units)).orElse(0.0);
+
+        if (discount > priceWithoutDiscount(units))
+            throw new IllegalStateException("Discount cannot exceed the price");
         return units * pricePerUnit - discount;
     }
 
