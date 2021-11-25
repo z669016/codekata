@@ -49,3 +49,17 @@ means an increase of search time with 33%.
 Hacking a 16 character password with 96 options for each character requires 96^16 ms which is like forever. Unless the 
 hash can be calculated much, much, much (e.g. many in parallel) this is not feasible.
 
+## Kata04 - [Data Munging](http://codekata.com/kata/kata04-data-munging/)
+So many possible solutions ... stream operations are ideal for these matters, so part one is to transform the file
+content (```List<SString>```) into a data structure. Parsing the line with a regular expression proofed a bit nasty
+so, I decided to just take substrings and transform those into values (```int```, ```double```, ```String```, and 
+```OptionalInt```). I moved this task into a static function of the data class, and added a function that would take a 
+list of lines, to transform that into a list of data objects. The same approach was used for part 2, but I moved the 
+substring transform methods into a utility class.
+
+In order to make more methods generic, I moved the function to create a list of lines onto a list of data objects into 
+the parser as well. The ```Parser``` would be created with passing a factory method (from String line to data object) to
+the constructor.
+
+Of course the parsing of the lines could be made more generic, but I don't feel that would make the solution simpler
+or more reusable.
