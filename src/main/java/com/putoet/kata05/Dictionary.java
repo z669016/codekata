@@ -2,36 +2,47 @@ package com.putoet.kata05;
 
 import java.util.BitSet;
 import java.util.List;
+import java.util.function.Function;
 
 public class Dictionary {
+    private final Function<String,Integer> hash;
     private final BitSet bitset;
     private final int size;
-    private final int modulo;
 
     public Dictionary(int size, List<String> words) {
         assert size > 2;
 
         bitset = new BitSet(size);
         this.size = size;
-        modulo = size;
+        this.hash = defaultHash(size);
 
-        init(bitset, words, modulo);
+        init(bitset, words, hash);
+    }
+
+    public Dictionary(int size, List<String> words, Function<String,Integer> hash) {
+        assert size > 2;
+
+        bitset = new BitSet(size);
+        this.size = size;
+        this.hash = hash;
+
+        init(bitset, words, hash);
     }
 
     public boolean contains(String word) {
-        return bitset.get(hash(word, modulo));
+        return bitset.get(hash.apply(word));
     }
 
     public long bitsSet() {
         return bitset.stream().count();
     }
 
-    private void init(BitSet bitset, List<String> words, int modulo) {
+    private void init(BitSet bitset, List<String> words, Function<String,Integer> hashFunction) {
         int min = Integer.MAX_VALUE;
         int max=Integer.MIN_VALUE;
 
         for (String word : words) {
-            final int hash = hash(word, modulo);
+            final int hash = hashFunction.apply(word);
             if (hash < min) min = hash;
             if (hash >max) max = hash;
 
@@ -39,7 +50,7 @@ public class Dictionary {
         }
     }
 
-    public static int hash(String word, int modulo) {
-        return Math.abs(word.hashCode() % modulo);
+    public static Function<String,Integer> defaultHash(int size) {
+        return (String word) -> Math.abs(word.hashCode() % size);
     }
 }

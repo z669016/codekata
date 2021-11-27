@@ -82,4 +82,7 @@ The correlation between the number of bits set and the possibility for false pos
 with size 1.000.000 the percentage of bits set equals the change of false positives. Above that size, the hash 
 algorithm will probably have a big impact.
 
+The code has been prepared to use different hash functions, and maybe I will try it sometime.
+
+
  

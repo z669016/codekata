@@ -4,6 +4,7 @@ import com.putoet.resources.ResourceLines;
 import org.javatuples.Pair;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class BloomFilter {
     public static void main(String[] args) {
@@ -15,8 +16,8 @@ public class BloomFilter {
         filter(10_000_000, words);
     }
 
-    private static void filter(int size, List<String> words) {
-        final Dictionary dictionary = new Dictionary(size, words);
+    private static void filter(int size, List<String> words, Function<String, Integer> hash) {
+        final Dictionary dictionary = new Dictionary(size, words, hash);
         System.out.println("The dictionary has " + dictionary.bitsSet() + " bits set.");
 
         final List<String> generated = WordGenerator.generate(size, 3, 12);
@@ -27,6 +28,10 @@ public class BloomFilter {
                 .count();
 
         System.out.println("Testing with a Bloom filter with " + size + " bits gives " + positives +
-                " positive matches (" + (int)(positives * 100 / size) + "%).");
+                " positive matches (" + (int) (positives * 100 / size) + "%).");
+    }
+
+    private static void filter(int size, List<String> words) {
+        filter(size, words, Dictionary.defaultHash(size));
     }
 }
