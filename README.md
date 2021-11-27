@@ -84,5 +84,15 @@ algorithm will probably have a big impact.
 
 The code has been prepared to use different hash functions, and maybe I will try it sometime.
 
+## Kata06 - [Anagrams](http://codekata.com/kata/kata06-anagrams/)
+My initial though to check if two words ara anagrams,would be to sort the letters of the word and just compare the 
+sorted lists. I'm not sure how efficient it will be though. The string of the sorted letters, can be used as a key 
+into a map of HashSet's that can be used to gather all anagrams of a specific combination of letters. 
+
+Well,that worked pretty well ... The entire word list was processed in 490 ms. 
+
+Counting the sets, the number of anagram words, the longest anagrams and the biggest set, are ridiculously easy 
+using the stream API on the map of words.
+
 
  
