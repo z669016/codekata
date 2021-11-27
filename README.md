@@ -1,7 +1,7 @@
 # Code KATA
 
 ## Kata01 - [Supermarket Pricing](http://codekata.com/kata/com.putoet.kata01-supermarket-pricing/)
-This design separates pricing mmodel from the ```Article``` class. The ```PricingScheme``` can have one
+This design separates pricing model from the ```Article``` class. The ```PricingScheme``` can have one
 ```DiscountScheme```. The pricing scheme calculates the total price and subtracts the discount (when a discount scheme
 is applicable). In line with a defensive programming approach,  the pricing scheme should validate if the discount
 does not exceed the price without discount.
@@ -12,7 +12,7 @@ and those that go by weight can be handled slightly differently
 
 ## Kata02 - [Karate Chop](http://codekata.com/kata/kata02-karate-chop/)
 Two basic approaches used, one with a loop, and one using recursion (as recursion is just-another-loop), on two 
-variants (crwaling through the original array, or creating a copy of the sub-array). The fifth approach felt unnatural,
+variants (crawling through the original array, or creating a copy of the sub-array). The fifth approach felt unnatural,
 so I picked the build in Arrays.binarySearch.
 The first attempt (LoopingCopyChop) came with most errors to get the sub arrays right. The recursive version, was 
 simple and straight forward. The non-copy variant caused again an error on updating ```start``` and ```end``` (again
@@ -63,3 +63,23 @@ the constructor.
 
 Of course the parsing of the lines could be made more generic, but I don't feel that would make the solution simpler
 or more reusable.
+
+## Kata05 - [Bloom Filters](http://codekata.com/kata/kata05-bloom-filters/)
+Some theory on Bloom Filters can be found [here](http://pages.cs.wisc.edu/~cao/papers/summary-cache/node8.html).
+
+Using the standard java hash, I found that the min hash code is -2147468937 ('skirl's'), and the max hash code is 
+2147460607 ('sneezeweed's'). that's too big of a range for a bit array. But, using a modulo, you can get it back to any 
+size you want. So, I' ve implemented the ```Dictionary``` using a BitSet, with a configurable size. The hash-value will
+be ```Math.abs(word.hashCode() % modulo)```.
+
+```WordGenerator``` can generate a list of configurable size with randomly generated words with a minimum and maximum 
+length. Using the word generator and the dictionary, I ran a test with a generated list of 1.000 to 1.000.000 words. 
+With a filter of 1.000 or 10.000 bits there was a 100% positive match with the randomly generated words (all bits here 
+set). WIth a bitset of 100.000 it was 96% of positive matches (96.646 bits set), and with 1.000.000 it reduced to 29%
+(287.293 bits set). Finally, with 10.000.000 bits the positive matches dropped to 4% (332.886 bits set).
+
+The correlation between the number of bits set and the possibility for false positives is clear: up until a bitset 
+with size 1.000.000 the percentage of bits set equals the change of false positives. Above that size, the hash 
+algorithm will probably have a big impact.
+
+ 
