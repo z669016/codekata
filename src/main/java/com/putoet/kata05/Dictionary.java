@@ -7,13 +7,11 @@ import java.util.function.Function;
 public class Dictionary {
     private final Function<String,Integer> hash;
     private final BitSet bitset;
-    private final int size;
 
     public Dictionary(int size, List<String> words) {
         assert size > 2;
 
         bitset = new BitSet(size);
-        this.size = size;
         this.hash = defaultHash(size);
 
         init(bitset, words, hash);
@@ -23,7 +21,6 @@ public class Dictionary {
         assert size > 2;
 
         bitset = new BitSet(size);
-        this.size = size;
         this.hash = hash;
 
         init(bitset, words, hash);

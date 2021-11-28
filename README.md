@@ -94,5 +94,15 @@ Well,that worked pretty well ... The entire word list was processed in 490 ms.
 Counting the sets, the number of anagram words, the longest anagrams and the biggest set, are ridiculously easy 
 using the stream API on the map of words.
 
+## kata07 - [How'd I do?](http://codekata.com/kata/kata07-howd-i-do/)
+Scanning my old [ebooks](https://github.com/z669016/ebooks) project was nice. I couldn't resist a major upgrade of 
+libraries (e.g.Junit) and refactoring of some code (updated constructs from Java), though I didn't do everything 
+possible (I've not introduced Record, or Optional to prefent ```NullPointerException```). 
+
+Overall, I was okay with the coding style, and my style didn't so much over the last few years. I'd been a bit sloppy
+on the use of constants, and that was a bit embarrassing.
+
+The exercise did trigger me to review all kata code again, and make some small changes (cleaning).
+
 
  
