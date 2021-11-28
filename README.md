@@ -104,5 +104,19 @@ on the use of constants, and that was a bit embarrassing.
 
 The exercise did trigger me to review all kata code again, and make some small changes (cleaning).
 
+## Kata08 - [Conflicting Objectives](http://codekata.com/kata/kata08-conflicting-objectives/)
+With the introduction of the Java Stream API, this kind of exercise has become quite straight forward. I've created
+a ```WordList``` class which loads the list of words and is able to filter a ```Set<String>``` out of that list with 
+words of a specified length. You basically need 6 sets with a word length varying from 1 to 6.
 
- 
+The algorithm takes two sets and checks if the words you can create from them are contained in the third set. You
+run the algorithm with oneLetterWords and fiveLetterWords, twoLetterWords and fourLetterWords, threeLetterWords and
+threeLetterWords, fourLetterWords and twoLetterWords, and fiveLetterWords and oneLetterWords. 
+
+As a small optimization you could check 1+5 en 5+1 in one go, as well as 2+4 and 4+2. I'm not sure if that improves 
+readability a lot. As the sets are quite large, you can speed up performance using a parallel stream (460 ms) instead 
+of a normal sequential stream (1350 ms).
+
+Using streams balances performance and readability very well in my opinion.
+
+
